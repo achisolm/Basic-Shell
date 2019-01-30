@@ -75,7 +75,7 @@ void parse(char* str, char** parsed) {
     
     while(token != NULL) {
         parsed[i] = token;
-        printf("%s\n", token);
+        //printf("%s\n", token);
 //printf("in while");
         token = strtok(NULL, splitter);
 
