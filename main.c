@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
     while (1) {
         printf("prompt> ");
         fgets(user_input, MAX_INPUT, stdin);
-        printf("%s", user_input);
+        strtok(user_input, "\n");
+        printf("%s\n", user_input);
 
 //printf("before func\n");
         parse(user_input, parsed);
@@ -38,12 +39,21 @@ int main(int argc, char* argv[])
         //printf("%s", user_input);
         //printf("%s", parsed[0]);
 
+        /*
         int i = 0;
         while (parsed[i] != NULL) {
             printf("%s\n", parsed[i]);
             i++;
         }
-        //execvp(parsed[0], parsed);
+        */
+
+       pid_t pid;
+
+       pid = fork();
+
+       if (pid == 0) {
+            execvp(parsed[0], parsed);
+       }
     }
 
     return 0;
