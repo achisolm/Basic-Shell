@@ -31,7 +31,9 @@ int main(int argc, char* argv[])
         printf("prompt> ");
         fgets(user_input, MAX_INPUT, stdin);
         strtok(user_input, "\n");
-        printf("%s\n", user_input);
+        if (strcmp(user_input, "exit") == 0) {
+            break;
+        }
 
 //printf("before func\n");
         parse(user_input, parsed);
@@ -53,6 +55,9 @@ int main(int argc, char* argv[])
 
        if (pid == 0) {
             execvp(parsed[0], parsed);
+       }
+       else {
+           wait();
        }
     }
 
