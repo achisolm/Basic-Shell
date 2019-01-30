@@ -32,33 +32,41 @@ int main(int argc, char* argv[])
         fgets(user_input, MAX_INPUT, stdin);
         printf("%s", user_input);
 
-printf("before func\n");
+//printf("before func\n");
         parse(user_input, parsed);
-printf("after func\n");
-        printf("%s", user_input);
-        printf("%s", parsed[0]);
+//printf("after func\n");
+        //printf("%s", user_input);
+        //printf("%s", parsed[0]);
 
-        //execvp(user_input, );
+        int i = 0;
+        while (parsed[i] != NULL) {
+            printf("%s\n", parsed[i]);
+            i++;
+        }
+        //execvp(parsed[0], parsed);
     }
 
     return 0;
 }
 
 void parse(char* str, char** parsed) {
-printf("in finc");
+//printf("in finc");
     char* token;
     char splitter[2] = " ";
-printf("in finc");
+//printf("in finc");
     token = strtok(str, splitter);
 
     int i = 0;
+    
     while(token != NULL) {
         parsed[i] = token;
-printf("in while");
-        token = strtok(str, splitter);
+        printf("%s\n", token);
+//printf("in while");
+        token = strtok(NULL, splitter);
 
         i++;
     }
+    
 
-    //parsed[i] = NULL;
+    parsed[i] = NULL;
 }
