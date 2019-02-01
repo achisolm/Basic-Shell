@@ -23,17 +23,24 @@ int main(int argc, char* argv[])
         printf("prompt> ");
         fgets(user_input, MAX_INPUT, stdin);
         strtok(user_input, "\n");
+        /*
         if (strcmp(user_input, "exit") == 0) {
             break;
         }
+        */
 
 
         int num_commands = parse_line(user_input, parsed_line);
 
-        for (int i = 0; i <= num_commands; i++) {
+        for (int i = 0; i < num_commands; i++) {
             parse_command(parsed_line[i], parsed_command);
 
+            if (strcmp(parsed_command[0], "exit") == 0) {
+                exit(0);
+            }
+
             pid_t pid;
+            int status;
 
             pid = fork();
 
@@ -41,10 +48,10 @@ int main(int argc, char* argv[])
                 printf("ERROR: Unable to execute!");
             }
             else if (pid == 0) {
-                    execvp(parsed_command[0], parsed_command);
+                execvp(parsed_command[0], parsed_command);
             }
             else {
-                wait();
+                while (wait(&status) != pid);
             }
         }
         
