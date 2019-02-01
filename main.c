@@ -9,13 +9,15 @@
 #include <unistd.h>
 #include <string.h>
 
-void parse(char* str, char** parsed);
+void parse_command(char* str, char** parsed_command);
+int parse_line(char* line, char** parsed_line);
 
 int main(int argc, char* argv[])
 {
     int MAX_INPUT = 100;
     char user_input [MAX_INPUT];
-    char* parsed [MAX_INPUT];
+    char* parsed_command [MAX_INPUT];
+    char* parsed_line [MAX_INPUT];
 
     //parsed[0] = "hello";
     /*
@@ -36,7 +38,26 @@ int main(int argc, char* argv[])
         }
 
 //printf("before func\n");
-        parse(user_input, parsed);
+        int num_commands = parse_line(user_input, parsed_line);
+
+        for (int i = 0; i <= num_commands; i++) {
+            parse_command(parsed_line[i], parsed_command);
+
+            pid_t pid;
+
+            pid = fork();
+
+            if (pid < 0) {
+                printf("ERROR: Unable to execute!");
+            }
+            else if (pid == 0) {
+                    execvp(parsed_command[0], parsed_command);
+            }
+            else {
+                wait();
+            }
+        }
+        
 //printf("after func\n");
         //printf("%s", user_input);
         //printf("%s", parsed[0]);
@@ -48,23 +69,14 @@ int main(int argc, char* argv[])
             i++;
         }
         */
-
-       pid_t pid;
-
-       pid = fork();
-
-       if (pid == 0) {
-            execvp(parsed[0], parsed);
-       }
-       else {
-           wait();
-       }
     }
+
+    
 
     return 0;
 }
 
-void parse(char* str, char** parsed) {
+void parse_command(char* str, char** parsed_command) {
 //printf("in finc");
     char* token;
     char splitter[2] = " ";
@@ -74,7 +86,7 @@ void parse(char* str, char** parsed) {
     int i = 0;
     
     while(token != NULL) {
-        parsed[i] = token;
+        parsed_command[i] = token;
         //printf("%s\n", token);
 //printf("in while");
         token = strtok(NULL, splitter);
@@ -83,5 +95,22 @@ void parse(char* str, char** parsed) {
     }
     
 
-    parsed[i] = NULL;
+    parsed_command[i] = NULL;
+}
+
+int parse_line(char* line, char** parsed_line) {
+    char* token;
+    char splitter[2] = ";";
+
+    token = strtok(line, splitter);
+
+    int i = 0;
+
+    while(token != NULL) {
+        parsed_line[i] = token;
+        token = strtok(NULL, splitter);
+        i++;
+    }
+
+    return i;
 }
