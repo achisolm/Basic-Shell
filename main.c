@@ -19,16 +19,6 @@ int main(int argc, char* argv[])
     char* parsed_command [MAX_INPUT];
     char* parsed_line [MAX_INPUT];
 
-    //parsed[0] = "hello";
-    /*
-    char *cmd = "ls";
-    char *str[3];
-    str[0] = "ls";
-    str[1] = "-la";
-    str[2] = NULL;
-
-    execvp(cmd, str);
-    */
     while (1) {
         printf("prompt> ");
         fgets(user_input, MAX_INPUT, stdin);
@@ -37,7 +27,7 @@ int main(int argc, char* argv[])
             break;
         }
 
-//printf("before func\n");
+
         int num_commands = parse_line(user_input, parsed_line);
 
         for (int i = 0; i <= num_commands; i++) {
@@ -58,17 +48,6 @@ int main(int argc, char* argv[])
             }
         }
         
-//printf("after func\n");
-        //printf("%s", user_input);
-        //printf("%s", parsed[0]);
-
-        /*
-        int i = 0;
-        while (parsed[i] != NULL) {
-            printf("%s\n", parsed[i]);
-            i++;
-        }
-        */
     }
 
     
@@ -77,18 +56,15 @@ int main(int argc, char* argv[])
 }
 
 void parse_command(char* str, char** parsed_command) {
-//printf("in finc");
     char* token;
     char splitter[2] = " ";
-//printf("in finc");
     token = strtok(str, splitter);
 
     int i = 0;
     
     while(token != NULL) {
         parsed_command[i] = token;
-        //printf("%s\n", token);
-//printf("in while");
+
         token = strtok(NULL, splitter);
 
         i++;
