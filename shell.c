@@ -9,12 +9,14 @@
 #include <unistd.h>
 #include <string.h>
 
+const int MAX_INPUT = 100;
+
 void parse_command(char* str, char** parsed_command);
 int parse_line(char* line, char** parsed_line);
 
 int main(int argc, char* argv[])
 {
-    int MAX_INPUT = 100;
+    //int MAX_INPUT = 100;
     char user_input [MAX_INPUT];
     char* parsed_command [MAX_INPUT];
     char* parsed_line [MAX_INPUT];
@@ -33,7 +35,7 @@ int main(int argc, char* argv[])
         int num_commands = parse_line(user_input, parsed_line);
 
         for (int i = 0; i < num_commands; i++) {
-            parse_command(parsed_line[i], parsed_command);
+            //parse_command(parsed_line[i], parsed_command);
 
             if (strcmp(parsed_command[0], "exit") == 0) {
                 exit(0);
@@ -48,7 +50,7 @@ int main(int argc, char* argv[])
                 printf("ERROR: Unable to execute!");
             }
             else if (pid == 0) {
-                execvp(parsed_command[0], parsed_command);
+                execvp(parsed_line[i], parsed_line);
             }
             else {
                 while (wait(&status) != pid);
@@ -84,15 +86,18 @@ void parse_command(char* str, char** parsed_command) {
 int parse_line(char* line, char** parsed_line) {
     char* token;
     char splitter[2] = ";";
+    char* parsed_command [MAX_INPUT];
 
     token = strtok(line, splitter);
 
     int i = 0;
 
     while(token != NULL) {
-        parsed_line[i] = token;
+        parse_command(token, parsed_command);
+        parsed_line[i] = parsed_command;
         token = strtok(NULL, splitter);
         i++;
+
     }
 
     return i;
