@@ -44,8 +44,6 @@ int main(int argc, char* argv[])
     else {
         printf("ERROR: Wrong number of arguments\n");
     }
-
-    return 1;
     
     return 0;
 }
