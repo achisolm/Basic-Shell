@@ -19,24 +19,13 @@ void execute_line(char* line);
 
 int main(int argc, char* argv[])
 {
-    //int MAX_INPUT = 100;
-    char user_input [MAX_INPUT];
-    char* parsed_command [MAX_INPUT];
-    char* parsed_line [MAX_INPUT];
-
-    FILE *batch_file;
-    char ch;
-
     // Interactive Mode
     if (argc == 1) {
-        //printf("should be interactive\n");
-
         interactive();
     }
 
     // Batch Mode
     else if (argc == 2) {
-        //printf("should be batch\n");
         batch(argv[1]);
     }
 
@@ -50,8 +39,6 @@ int main(int argc, char* argv[])
 
 void interactive() {
     char user_input [MAX_INPUT];
-    char* parsed_command [MAX_INPUT];
-    char* parsed_line [MAX_INPUT];
 
     while (1) {
         printf("prompt> ");
@@ -73,7 +60,6 @@ void batch(char* file_name) {
     }
 
     while (fgets(line, MAX_INPUT, batch_file)) {
-        //printf("%s", line);
         execute_line(line);
     }
 
