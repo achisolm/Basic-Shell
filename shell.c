@@ -91,8 +91,10 @@ void execute_line(char* line) {
         if (pid < 0) {
             printf("ERROR: Unable to execute!");
         }
+        
         else if (pid == 0) {
-            execvp(parsed_command[0], parsed_command);
+            if(parsed_command[0] != NULL)
+                execvp(parsed_command[0], parsed_command);
         }
 
         else {
