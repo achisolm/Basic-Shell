@@ -7,9 +7,9 @@ Design Overview:
 
 Upon running the code, the program prints a prompt for the user to enter a command. The command
 is read in using standard input, and the input is then parsed using the parse line function. Parsed
-line takes every command given in a line (commands may be seperated by semicolons, or a single command
-may be given) and seperates multiple commands if nessecary. After the input is passed through the parsed
-line function, each command is indivudually ran through the parse command function which allows the command
+line takes every command given in a line (commands may be separated by semicolons, or a single command
+may be given) and separates multiple commands if necessary. After the input is passed through the parsed
+line function, each command is individually ran through the parse command function which allows the command
 to be ran by execvp. Both parse line and parse command use strtok to split the commands and command flags
 respectively.
 
@@ -19,7 +19,7 @@ input with the commands found in the file.
 Specifications:
 
 As of now, the program simply displays the prompt after every input unless the user enters "exit". If the command
-is not valid, nothing happens and the prompt is displayed. If the command is valid, it successfully runs the command
+is not valid, nothing happens, and the prompt is displayed. If the command is valid, it successfully runs the command
 and also displays the prompt. We simply leave it up to execvp to decide if the command is valid, if it is not valid, 
 execvp doesn't do anything with that input (A large blank space does break the program, but single space will not).
 
